@@ -83,7 +83,7 @@ describe "Trailing Stop Loss" do
   context "price goes down" do
     context "to the limit" do
       it "does not sell" do
-        order.price_changed(price: 9, time: -999)
+        order.price_changed(price: 9, time: Float::INFINITY)
         expect(actions).to be_empty
       end
     end
