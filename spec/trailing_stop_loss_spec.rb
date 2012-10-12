@@ -90,7 +90,7 @@ describe "Trailing Stop Loss" do
 
     context "below the limit" do
       it "sells" do
-        order.price_changed(price: 8, time: -999)
+        order.price_changed(price: 8, time: Float::INFINITY)
         expect(actions).to be == [ :sell ]
       end
 
