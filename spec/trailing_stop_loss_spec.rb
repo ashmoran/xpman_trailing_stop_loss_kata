@@ -23,18 +23,27 @@ describe "Trailing Stop Loss" do
     TrailingStopLoss.new(limit: 9, current_time: 100, market: self)
   }
 
+  shared_examples_for "a price increase" do
+    it "does not sell" do
+      expect(actions).to be_empty
+    end
+  end
+
+  shared_examples_for "an order with a limit of" do |limit|
+    it "has a limit of #{limit}" do
+      order.price_changed(price: limit - 1, time: Float::INFINITY)
+      expect(actions).to be == [ :sell ]
+    end
+  end
+
   context "price goes up" do
     context "for a significant time" do
-      it "does not sell" do
+      before(:each) do
         order.price_changed(price: 11, time: 116)
-        expect(actions).to be_empty
       end
 
-      it "moves the limit up" do
-        order.price_changed(price: 11, time: 116)
-        order.price_changed(price:  9, time: 117)
-        expect(actions).to be == [ :sell ]
-      end
+      it_behaves_like "a price increase"
+      it_behaves_like "an order with a limit of", 10
 
       context "and then goes up again" do
         before(:each) do
@@ -43,39 +52,28 @@ describe "Trailing Stop Loss" do
         end
 
         context "for a significant time" do
-          it "does not sell" do
+          before(:each) do
             order.price_changed(price: 12, time: 132)
-            expect(actions).to be_empty
           end
 
-          it "moves the limit up" do
-            order.price_changed(price: 12, time: 132)
-            order.price_changed(price: 10, time: 133)
-            expect(actions).to be == [ :sell ]
-          end
+          it_behaves_like "a price increase"
+          it_behaves_like "an order with a limit of", 11
         end
 
         context "momentarily" do
-          it "does not move the limit up" do
+          before(:each) do
             order.price_changed(price: 12, time: 131)
-            order.price_changed(price: 10, time: 132)
-            expect(actions).to be_empty
           end
+
+          it_behaves_like "a price increase"
+          it_behaves_like "an order with a limit of", 10
         end
       end
     end
 
     context "monentarily" do
-      it "does not sell" do
-        order.price_changed(price: 11, time: 115)
-        expect(actions).to be_empty
-      end
-
-      it "does not move the limit up" do
-        order.price_changed(price: 11, time: 115)
-        order.price_changed(price:  9, time: 116)
-        expect(actions).to be_empty
-      end
+      it_behaves_like "a price increase"
+      it_behaves_like "an order with a limit of", 9
     end
   end
 
