@@ -31,6 +31,10 @@ describe "Trailing Stop Loss" do
       order.price_changed(9)
       expect(actions).to be == [ :sell ]
     end
+
+    it "doesn't do this if the blip is temporary" do
+      pending
+    end
   end
 
   context "price goes down to the limit" do
