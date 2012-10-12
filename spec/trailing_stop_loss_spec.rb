@@ -38,7 +38,7 @@ describe "Trailing Stop Loss" do
 
   context "price goes up" do
     context "for a significant time" do
-      before(:each) do
+      when_event_happens do
         order.price_changed(price: 11, time: 116)
       end
 
@@ -46,13 +46,8 @@ describe "Trailing Stop Loss" do
       it_behaves_like "an order with a limit of", 10
 
       context "and then goes up again" do
-        before(:each) do
-          # The price has already gone up once for a significant time
-          order.price_changed(price: 11, time: 116)
-        end
-
         context "for a significant time" do
-          before(:each) do
+          when_event_happens do
             order.price_changed(price: 12, time: 132)
           end
 
@@ -61,7 +56,7 @@ describe "Trailing Stop Loss" do
         end
 
         context "momentarily" do
-          before(:each) do
+          when_event_happens do
             order.price_changed(price: 12, time: 131)
           end
 
@@ -72,6 +67,10 @@ describe "Trailing Stop Loss" do
     end
 
     context "monentarily" do
+      when_event_happens do
+        order.price_changed(price: 11, time: 115)
+      end
+
       it_behaves_like "a price increase"
       it_behaves_like "an order with a limit of", 9
     end
