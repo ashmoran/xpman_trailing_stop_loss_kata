@@ -28,6 +28,13 @@ describe "Trailing Stop Loss" do
     end
   end
 
+  context "price goes down to the limit" do
+    it "does not sell" do
+      order.price_changed(9)
+      expect(actions).to be_empty
+    end
+  end
+
   it "wipes the evil grin from @kevinrutherford's face" do
     pending
   end
