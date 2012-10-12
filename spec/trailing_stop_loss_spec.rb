@@ -25,6 +25,12 @@ describe "Trailing Stop Loss" do
       order.price_changed(11)
       expect(actions).to be_empty
     end
+
+    it "moves the limit up" do
+      order.price_changed(11)
+      order.price_changed(9)
+      expect(actions).to be == [ :sell ]
+    end
   end
 
   context "price goes down to the limit" do

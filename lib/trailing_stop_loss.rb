@@ -8,5 +8,8 @@ class TrailingStopLoss
     if new_price < @limit
       @market.sell
     end
+    if new_price > @limit
+      @limit = new_price - 1
+    end
   end
 end
