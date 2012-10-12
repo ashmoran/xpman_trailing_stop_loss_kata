@@ -36,8 +36,32 @@ describe "Trailing Stop Loss" do
         expect(actions).to be == [ :sell ]
       end
 
-      it "resets the timer" do
-        pending
+      context "and then goes up again" do
+        before(:each) do
+          # Thi price has already gone up once for a significant time
+          order.price_changed(price: 11, time: 116)
+        end
+
+        context "for a significant time" do
+          it "does not sell" do
+            order.price_changed(price: 12, time: 132)
+            expect(actions).to be_empty
+          end
+
+          it "moves the limit up" do
+            order.price_changed(price: 12, time: 132)
+            order.price_changed(price: 10, time: 133)
+            expect(actions).to be == [ :sell ]
+          end
+        end
+
+        context "momentarily" do
+          it "does not move the limit up" do
+            order.price_changed(price: 12, time: 131)
+            order.price_changed(price: 10, time: 132)
+            expect(actions).to be_empty
+          end
+        end
       end
     end
 

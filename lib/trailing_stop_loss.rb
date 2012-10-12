@@ -14,6 +14,8 @@ class TrailingStopLoss
     if new_price > @limit && time_is_sufficient_for_limit_raise?(price_time)
       @limit = new_price - 1
     end
+
+    @last_known_time = price_time
   end
 
   private
