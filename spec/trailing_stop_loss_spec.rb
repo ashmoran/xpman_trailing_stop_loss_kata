@@ -38,7 +38,7 @@ describe "Trailing Stop Loss" do
 
       context "and then goes up again" do
         before(:each) do
-          # Thi price has already gone up once for a significant time
+          # The price has already gone up once for a significant time
           order.price_changed(price: 11, time: 116)
         end
 
