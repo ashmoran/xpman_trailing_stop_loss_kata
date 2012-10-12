@@ -1,17 +1,5 @@
 require 'spec_helper'
-
-class TrailingStopLoss
-  def initialize(attributes)
-    @limit  = attributes[:limit]
-    @market = attributes[:market]
-  end
-
-  def price_changed(new_price)
-    if new_price < @limit
-      @market.sell
-    end
-  end
-end
+require 'trailing_stop_loss'
 
 describe "Trailing Stop Loss" do
   subject(:order) { TrailingStopLoss.new(limit: 9, market: self) }
