@@ -77,20 +77,26 @@ describe "Trailing Stop Loss" do
   end
 
   context "price goes down to the limit" do
-    it "does not sell" do
-      order.price_changed(price: 9, time: -999)
-      expect(actions).to be_empty
-    end
+
   end
 
-  context "price goes below the limit" do
-    it "sells" do
-      order.price_changed(price: 8, time: -999)
-      expect(actions).to be == [ :sell ]
+  context "price goes down" do
+    context "to the limit" do
+      it "does not sell" do
+        order.price_changed(price: 9, time: -999)
+        expect(actions).to be_empty
+      end
     end
 
-    it "doesn't do this if the blip is temporary" do
-      pending
+    context "below the limit" do
+      it "sells" do
+        order.price_changed(price: 8, time: -999)
+        expect(actions).to be == [ :sell ]
+      end
+
+      it "doesn't do this if the blip is temporary" do
+        pending
+      end
     end
   end
 
