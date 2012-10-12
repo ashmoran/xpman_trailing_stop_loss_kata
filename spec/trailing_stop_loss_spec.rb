@@ -1,9 +1,6 @@
 require 'spec_helper'
 require 'trailing_stop_loss'
 
-describe "Trailing Stop Loss" do
-  subject(:order) { TrailingStopLoss.new(limit: 9, market: self) }
-
   # Interface for self-shunt
   module Market
     def sell
@@ -14,11 +11,15 @@ describe "Trailing Stop Loss" do
       @actions
     end
   end
+
+describe "Trailing Stop Loss" do
   include Market
 
   before(:each) do
     @actions = [ ]
   end
+
+  subject(:order) { TrailingStopLoss.new(limit: 9, market: self) }
 
   context "price goes up" do
     it "does not sell" do
