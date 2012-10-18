@@ -5,11 +5,7 @@ describe "Trailing Stop Loss 2" do
   include Market
 
   let(:agent) {
-    mock("MarketAgent").tap do |agent|
-      agent.stub(:sell) do
-        sell
-      end
-    end
+    ImmediateMarketAgent.new(self)
   }
 
   subject(:order) { TrailingStopLoss2.new(limit: 9, market_agent: agent) }
