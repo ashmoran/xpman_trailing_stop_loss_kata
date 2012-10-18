@@ -1,22 +1,11 @@
 require 'spec_helper'
 require 'trailing_stop_loss'
 
-# Interface for self-shunt
-module Market
-  def sell
-    @actions << :sell
-  end
-
-  def actions
-    @actions
-  end
-end
-
 describe "Trailing Stop Loss" do
   include Market
 
   before(:each) do
-    @actions = [ ]
+    initialize_market
   end
 
   subject(:order) {
