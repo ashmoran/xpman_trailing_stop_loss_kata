@@ -118,7 +118,7 @@ describe "Trailing Stop Loss" do
     end
   end
 
-  it "wipes the evil grin from @kevinrutherford's face" do
-    pending
-  end
+  # it "wipes the evil grin from @kevinrutherford's face" do
+  #   pending
+  # end
 end
