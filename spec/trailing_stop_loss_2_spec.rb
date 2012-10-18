@@ -30,7 +30,7 @@ describe "Trailing Stop Loss 2" do
 end
 
 describe ImmediateMarketAgent, type: :market_agent do
-  subject(:agent) { ImmediateMarketAgent.new(self) }
+  subject(:agent) { ImmediateMarketAgent.new(market: self) }
 
   context "when told to sell" do
     it "sells immediately" do
@@ -41,7 +41,7 @@ describe ImmediateMarketAgent, type: :market_agent do
 end
 
 describe DelayedMarketAgent, type: :market_agent do
-  subject(:agent) { DelayedMarketAgent.new(self) }
+  subject(:agent) { DelayedMarketAgent.new(market: self, delay: 0.1) }
 
   context "before the time specified" do
     it "does not sell" do

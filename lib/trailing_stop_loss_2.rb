@@ -1,3 +1,5 @@
+require 'celluloid'
+
 class TrailingStopLoss2
   def initialize(attributes)
     @limit = attributes[:limit]
@@ -16,8 +18,8 @@ end
 class ImmediateMarketAgent
   extend MarketAgent
 
-  def initialize(market)
-    @market = market
+  def initialize(dependencies)
+    @market = dependencies[:market]
   end
 
   def sell
@@ -27,12 +29,16 @@ end
 
 class DelayedMarketAgent
   extend MarketAgent
+  include Celluloid
 
-  def initialize(market)
-    @market = market
+  def initialize(dependencies)
+    @market = dependencies[:market]
+    @delay = dependencies[:delay]
   end
 
   def sell
-
+    after(@delay) do
+      @market.sell
+    end
   end
 end
