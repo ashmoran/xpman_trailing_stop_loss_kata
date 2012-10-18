@@ -29,18 +29,28 @@ describe "Trailing Stop Loss 2" do
   end
 end
 
-describe ImmediateMarketAgent do
-  include Market
-
+describe ImmediateMarketAgent, type: :market_agent do
   subject(:agent) { ImmediateMarketAgent.new(self) }
-
-  before(:each) do
-    initialize_market
-  end
 
   context "when told to sell" do
     it "sells immediately" do
       agent.sell
+      expect(actions).to be == [ :sell ]
+    end
+  end
+end
+
+describe DelayedMarketAgent, type: :market_agent do
+  subject(:agent) { DelayedMarketAgent.new(self) }
+
+  context "before the time specified" do
+    it "does not sell" do
+      expect(actions).to be_empty
+    end
+  end
+
+  context "after the time specified" do
+    it "sells" do
       expect(actions).to be == [ :sell ]
     end
   end

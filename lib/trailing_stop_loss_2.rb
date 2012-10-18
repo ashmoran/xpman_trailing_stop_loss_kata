@@ -9,12 +9,30 @@ class TrailingStopLoss2
   end
 end
 
+module MarketAgent
+
+end
+
 class ImmediateMarketAgent
+  extend MarketAgent
+
   def initialize(market)
     @market = market
   end
 
   def sell
     @market.sell
+  end
+end
+
+class DelayedMarketAgent
+  extend MarketAgent
+
+  def initialize(market)
+    @market = market
+  end
+
+  def sell
+
   end
 end
