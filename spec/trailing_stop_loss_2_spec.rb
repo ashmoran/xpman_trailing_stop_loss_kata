@@ -32,3 +32,20 @@ describe "Trailing Stop Loss 2" do
     end
   end
 end
+
+describe ImmediateMarketAgent do
+  include Market
+
+  subject(:agent) { ImmediateMarketAgent.new(self) }
+
+  before(:each) do
+    initialize_market
+  end
+
+  context "when told to sell" do
+    it "sells immediately" do
+      agent.sell
+      expect(actions).to be == [ :sell ]
+    end
+  end
+end

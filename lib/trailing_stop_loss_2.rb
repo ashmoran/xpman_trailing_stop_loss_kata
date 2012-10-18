@@ -8,3 +8,13 @@ class TrailingStopLoss2
     @agent.sell if new_price < @limit
   end
 end
+
+class ImmediateMarketAgent
+  def initialize(market)
+    @market = market
+  end
+
+  def sell
+    @market.sell
+  end
+end
