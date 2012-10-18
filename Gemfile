@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 ruby '1.9.3'
 
 gem 'facets'
+gem 'celluloid'
 
 group :development do
 	gem 'guard'
