@@ -1,11 +1,9 @@
 require 'spec_helper'
 require 'trailing_stop_loss_2'
 
-describe "Trailing Stop Loss 2" do
-  include Market
-
+describe "Trailing Stop Loss 2", type: :market_agent do
   let(:agent) {
-    ImmediateMarketAgent.new(self)
+    ImmediateMarketAgent.new(market: self)
   }
 
   subject(:order) { TrailingStopLoss2.new(limit: 9, market_agent: agent) }
@@ -45,12 +43,14 @@ describe DelayedMarketAgent, type: :market_agent do
 
   context "before the time specified" do
     it "does not sell" do
+      sleep 0.05
       expect(actions).to be_empty
     end
   end
 
   context "after the time specified" do
     it "sells" do
+      sleep 0.15
       expect(actions).to be == [ :sell ]
     end
   end

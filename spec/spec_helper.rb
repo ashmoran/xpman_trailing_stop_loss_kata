@@ -1,7 +1,11 @@
 require 'ap'
 
 # Interface for self-shunt
-module Market
+class Market
+  def initialize
+    @actions = [ ]
+  end
+
   def sell
     @actions << :sell
   end
@@ -9,9 +13,19 @@ module Market
   def actions
     @actions
   end
+end
 
+module MarketSelfShunt
   def initialize_market
-    @actions = [ ]
+    @market = Market.new
+  end
+
+  def sell
+    @market.sell
+  end
+
+  def actions
+    @market.actions
   end
 end
 
@@ -24,7 +38,7 @@ end
 RSpec.configure do |config|
   config.extend(EventDSL)
 
-  config.include(Market, type: :market_agent)
+  config.include(MarketSelfShunt, type: :market_agent)
   config.before(:each) do
     if example.metadata[:type] == :market_agent
       initialize_market

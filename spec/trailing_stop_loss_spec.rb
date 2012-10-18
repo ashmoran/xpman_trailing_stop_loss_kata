@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'trailing_stop_loss'
 
 describe "Trailing Stop Loss" do
-  include Market
+  include MarketSelfShunt
 
   before(:each) do
     initialize_market
