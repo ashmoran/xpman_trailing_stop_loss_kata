@@ -39,19 +39,22 @@ describe ImmediateMarketAgent, type: :market_agent do
 end
 
 describe DelayedMarketAgent, type: :market_agent do
-  subject(:agent) { DelayedMarketAgent.new(market: self, delay: 0.1) }
+  let(:market) { Market.new }
+  subject(:agent) { DelayedMarketAgent.new(market: market, delay: 0.1) }
 
   context "before the time specified" do
     it "does not sell" do
+      agent.sell
       sleep 0.05
-      expect(actions).to be_empty
+      expect(market.actions).to be_empty
     end
   end
 
   context "after the time specified" do
     it "sells" do
+      agent.sell
       sleep 0.15
-      expect(actions).to be == [ :sell ]
+      expect(market.actions).to be == [ :sell ]
     end
   end
 end
