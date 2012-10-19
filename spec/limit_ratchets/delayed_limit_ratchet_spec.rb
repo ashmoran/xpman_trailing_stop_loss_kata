@@ -5,27 +5,12 @@ require 'orders/test_order'
 require 'limit_ratchets/delayed_limit_ratchet'
 
 describe DelayedLimitRatchet do
-  it "doesn't duplicate the Celluloid code" do
-    pending
-  end
-
-  let(:logger) { Logger.new(StringIO.new) }
-
-  around(:each) do |example|
-    original_logger = Celluloid.logger
-    Celluloid.logger = logger
-    example.run
-    Celluloid.logger = original_logger
-  end
-
-  after(:all) do
-    Celluloid.logger = nil
-  end
-
-  it_behaves_like "a PriceListener"
+  include CelluloidHelpers
 
   let(:order) { TestOrder.new }
   subject(:ratchet) { DelayedLimitRatchet.new(order: order, opening_price: 21, delay: 0.05) }
+
+  it_behaves_like "a PriceListener"
 
   context "the price goes up" do
     context "for less than the delay" do
