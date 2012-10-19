@@ -7,12 +7,32 @@ class TrailingStopLoss2
   end
 
   def price_changed(new_price)
-    @agent.sell if new_price < @limit
+    if new_price < @limit
+      @agent.sell
+    else
+      @agent.belay
+    end
   end
 end
 
 module MarketAgent
 
+end
+
+class TestMarketAgent
+  extend MarketAgent
+
+  def initialize(dependencies)
+    @market = dependencies[:market]
+  end
+
+  def sell
+    @market.sell
+  end
+
+  def belay
+    @market.belay
+  end
 end
 
 class ImmediateMarketAgent
