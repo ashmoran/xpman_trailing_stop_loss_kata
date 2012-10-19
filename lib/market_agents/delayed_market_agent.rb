@@ -17,20 +17,17 @@ class DelayedMarketAgent
     end
   end
 
-  NULL_TIMER = NullTimer.new
-  TOO_LATE_TIMER = TooLateTimer.new
-
   def initialize(dependencies)
     @market = dependencies[:market]
     @delay  = dependencies[:delay]
-    @timer  = NULL_TIMER
+    @timer  = NullTimer.new
   end
 
   def sell
     @timer.cancel
     @timer = after(@delay) do
       @market.sell
-      @timer = TOO_LATE_TIMER
+      @timer = TooLateTimer.new
     end
   end
 
