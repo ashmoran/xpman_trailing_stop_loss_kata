@@ -1,4 +1,4 @@
-require_relative 'market_agent'
+require_relative '../interfaces/market_agent'
 
 class ImmediateMarketAgent
   include MarketAgent

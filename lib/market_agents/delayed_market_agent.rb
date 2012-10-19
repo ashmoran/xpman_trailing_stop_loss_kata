@@ -1,5 +1,5 @@
 require 'celluloid'
-require_relative 'market_agent'
+require_relative '../interfaces/market_agent'
 require_relative '../timers/null_timer'
 require_relative '../timers/too_late_timer'
 

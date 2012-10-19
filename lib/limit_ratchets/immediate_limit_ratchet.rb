@@ -1,7 +1,7 @@
-require_relative '../price_listener'
+require_relative '../interfaces/limit_ratchet'
 
 class ImmediateLimitRatchet
-  include PriceListener
+  include LimitRatchet
 
   def initialize(dependencies)
     @order            = dependencies[:order]

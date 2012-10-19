@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'contracts/price_listener_contract'
+require 'contracts/limit_ratchet_contract'
 
 require 'orders/test_order'
 require 'limit_ratchets/delayed_limit_ratchet'
@@ -10,7 +10,7 @@ describe DelayedLimitRatchet do
   let(:order) { TestOrder.new }
   subject(:ratchet) { DelayedLimitRatchet.new(order: order, opening_price: 21, delay: 0.05) }
 
-  it_behaves_like "a PriceListener"
+  it_behaves_like "a LimitRatchet"
 
   context "the price goes up" do
     context "for less than the delay" do

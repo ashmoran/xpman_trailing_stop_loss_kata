@@ -1,10 +1,10 @@
 require 'celluloid'
 
-require_relative '../price_listener'
+require_relative '../interfaces/limit_ratchet'
 require_relative '../timers/null_timer'
 
 class DelayedLimitRatchet
-  include PriceListener
+  include LimitRatchet
   include Celluloid
 
   def initialize(dependencies)
