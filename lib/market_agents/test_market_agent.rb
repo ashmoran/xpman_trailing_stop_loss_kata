@@ -21,7 +21,7 @@ class TestMarketAgent
     @queued_actions.<<(:belay)
   end
 
-  def allow_sell_to_complete
+  def allow_actions_to_complete
     @queued_actions.each do |action|
       @market.send(action)
       @performed_actions << action

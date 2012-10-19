@@ -42,7 +42,7 @@ shared_examples_for "a DeferredMarketAgent" do
   include_context "MarketAgent context"
 
   before(:each) do
-    expect_helper_methods(:sell_without_completing, :allow_sell_to_complete)
+    expect_helper_methods(:sell_without_completing, :allow_actions_to_complete)
   end
 
   describe "#sell" do
@@ -59,7 +59,7 @@ shared_examples_for "a DeferredMarketAgent" do
       it "raises an error" do
         expect {
           sell_without_completing
-          allow_sell_to_complete
+          allow_actions_to_complete
           sell_without_completing
         }.to raise_error(MarketAgent::ActionError, "Sell order has already been issued")
       end

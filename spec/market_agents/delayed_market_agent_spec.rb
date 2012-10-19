@@ -37,7 +37,7 @@ describe DelayedMarketAgent do
       agent.sell
     end
 
-    def allow_sell_to_complete
+    def allow_actions_to_complete
       sleep 0.06
     end
   end

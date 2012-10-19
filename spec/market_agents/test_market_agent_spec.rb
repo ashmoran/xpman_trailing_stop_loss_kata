@@ -11,7 +11,7 @@ describe TestMarketAgent do
   it_behaves_like "a MarketAgent" do
     def sell
       agent.sell
-      agent.allow_sell_to_complete
+      agent.allow_actions_to_complete
     end
 
     def belay
@@ -24,15 +24,15 @@ describe TestMarketAgent do
       agent.sell
     end
 
-    def allow_sell_to_complete
-      agent.allow_sell_to_complete
+    def allow_actions_to_complete
+      agent.allow_actions_to_complete
     end
   end
 
   context "when told to sell" do
     it "sells immediately" do
       agent.sell
-      agent.allow_sell_to_complete
+      agent.allow_actions_to_complete
       expect(market.actions).to be == [ :sell ]
     end
 
@@ -40,7 +40,7 @@ describe TestMarketAgent do
       it "sells twice (because in the tests we want to prove the message was sent twice)" do
         agent.sell
         agent.sell
-        agent.allow_sell_to_complete
+        agent.allow_actions_to_complete
         expect(market.actions).to be == [ :sell, :sell ]
       end
     end
@@ -49,7 +49,7 @@ describe TestMarketAgent do
   context "when told to belay" do
     it "records that it was belayed" do
       agent.belay
-      agent.allow_sell_to_complete
+      agent.allow_actions_to_complete
       expect(market.actions).to be == [ :belay ]
     end
   end
@@ -57,7 +57,7 @@ describe TestMarketAgent do
   it "plays actions in order" do
     agent.sell
     agent.belay
-    agent.allow_sell_to_complete
+    agent.allow_actions_to_complete
     expect(market.actions).to be == [ :sell, :belay ]
   end
 end
