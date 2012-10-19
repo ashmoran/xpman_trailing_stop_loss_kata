@@ -1,4 +1,8 @@
+require_relative 'price_listener'
+
 class TrailingStopLoss
+  include PriceListener
+
   def initialize(attributes)
     @limit = attributes[:limit]
     @agent = attributes[:market_agent]

@@ -1,11 +1,14 @@
 require 'spec_helper'
+require 'support/price_listener_contract'
+
 require 'trailing_stop_loss'
-require 'test_market'
 require 'market_agents/test_market_agent'
 
 describe TrailingStopLoss do
   let(:agent)     { TestMarketAgent.new }
   subject(:order) { TrailingStopLoss.new(limit: 9, market_agent: agent) }
+
+  it_behaves_like "a PriceListener"
 
   context "price drops below limit" do
     it "sells" do
