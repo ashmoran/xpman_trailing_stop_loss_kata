@@ -2,7 +2,7 @@ require 'celluloid'
 require_relative 'market_agent'
 
 class DelayedMarketAgent
-  extend MarketAgent
+  include MarketAgent
   include Celluloid
 
   class NullTimer
@@ -27,6 +27,7 @@ class DelayedMarketAgent
   end
 
   def sell
+    @timer.cancel
     @timer = after(@delay) do
       @market.sell
       @timer = TOO_LATE_TIMER

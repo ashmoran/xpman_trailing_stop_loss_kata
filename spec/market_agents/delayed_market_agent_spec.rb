@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'support/market_agent_contract'
+
 require 'market'
 require 'market_agents/delayed_market_agent'
 
@@ -18,6 +20,17 @@ describe DelayedMarketAgent do
 
   let(:market)    { Market.new }
   subject(:agent) { DelayedMarketAgent.new(market: market, delay: 0.05) }
+
+  it_behaves_like "a MarketAgent" do
+    def sell
+      agent.sell
+      sleep 0.06
+    end
+
+    def belay
+      agent.belay
+    end
+  end
 
   context "when told to sell" do
     context "before the specified sell delay" do
@@ -42,6 +55,16 @@ describe DelayedMarketAgent do
           sleep 0.04
           agent.belay
           agent.belay
+          sleep 0.02
+          expect(market.actions).to be_empty
+        end
+      end
+
+      context "and sell again" do
+        it "resets the timer (because we assume the price has changed" do
+          agent.sell
+          sleep 0.04
+          agent.sell
           sleep 0.02
           expect(market.actions).to be_empty
         end

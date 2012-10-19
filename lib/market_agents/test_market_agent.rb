@@ -1,7 +1,7 @@
 require_relative 'market_agent'
 
 class TestMarketAgent
-  extend MarketAgent
+  include MarketAgent
 
   def initialize(dependencies)
     @market = dependencies[:market]

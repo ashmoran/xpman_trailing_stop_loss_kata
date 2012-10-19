@@ -29,5 +29,13 @@ describe TrailingStopLoss do
       expect(market.actions).to be == [ :sell, :belay ]
     end
   end
+
+  context "price drops below the limit, then drops further" do
+    it "sells twice (because we want to let the agent decide how to handle this)" do
+      order.price_changed(8)
+      order.price_changed(7)
+      expect(market.actions).to be == [ :sell, :sell ]
+    end
+  end
 end
 

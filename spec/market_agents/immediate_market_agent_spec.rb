@@ -1,10 +1,22 @@
 require 'spec_helper'
+require 'support/market_agent_contract'
+
 require 'market'
 require 'market_agents/immediate_market_agent'
 
 describe ImmediateMarketAgent do
   let(:market)    { Market.new }
   subject(:agent) { ImmediateMarketAgent.new(market: market) }
+
+  it_behaves_like "a MarketAgent" do
+    def sell
+      agent.sell
+    end
+
+    def belay
+      agent.belay
+    end
+  end
 
   context "when told to sell" do
     it "sells immediately" do
@@ -19,6 +31,14 @@ describe ImmediateMarketAgent do
         expect {
           agent.belay
         }.to raise_error(MarketAgent::ActionError, "Sell order has already been issued")
+      end
+    end
+
+    context "and sell again" do
+      it "sells just once (because the contract for this interface allows multiple sells)" do
+        agent.sell
+        agent.sell
+        expect(market.actions).to be == [ :sell ]
       end
     end
   end
