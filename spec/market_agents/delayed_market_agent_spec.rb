@@ -32,16 +32,6 @@ describe DelayedMarketAgent do
     end
   end
 
-  it_behaves_like "a DeferredMarketAgent" do
-    def sell_without_completing
-      agent.sell
-    end
-
-    def allow_actions_to_complete
-      sleep 0.06
-    end
-  end
-
   context "when told to sell" do
     context "before the specified sell delay" do
       it "has not not sold" do
@@ -61,12 +51,11 @@ describe DelayedMarketAgent do
         end
 
         it "is idempotent" do
-          agent.sell
-          sleep 0.04
-          agent.belay
-          agent.belay
-          sleep 0.02
-          expect(market.actions).to be_empty
+          expect {
+            agent.sell
+            agent.belay
+            agent.belay
+          }.to_not raise_error
         end
       end
 
