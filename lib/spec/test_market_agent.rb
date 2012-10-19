@@ -1,4 +1,3 @@
-# Exactly the same as TestMarket now...
 class TestMarketAgent
   def initialize
     @actions = [ ]

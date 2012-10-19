@@ -1,5 +1,9 @@
 require 'ap'
 
+require 'spec/test_market'
+require 'spec/test_market_agent'
+require 'spec/test_order'
+
 require 'support/celluloid_helpers'
 
 module EventDSL

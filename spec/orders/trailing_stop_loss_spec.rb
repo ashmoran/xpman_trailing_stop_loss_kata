@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'contracts/price_listener_contract'
 
 require 'orders/trailing_stop_loss'
-require 'market_agents/test_market_agent'
 
 describe TrailingStopLoss do
   let(:agent)     { TestMarketAgent.new }

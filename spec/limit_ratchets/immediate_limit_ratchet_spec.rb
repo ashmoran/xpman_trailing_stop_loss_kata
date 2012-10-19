@@ -1,12 +1,9 @@
 require 'spec_helper'
-require 'contracts/price_listener_contract'
 require 'contracts/limit_ratchet_contract'
 
-require 'orders/test_order'
 require 'limit_ratchets/immediate_limit_ratchet'
 
 describe ImmediateLimitRatchet do
-  it_behaves_like "a PriceListener"
   it_behaves_like "a LimitRatchet"
 
   let(:order) { TestOrder.new }

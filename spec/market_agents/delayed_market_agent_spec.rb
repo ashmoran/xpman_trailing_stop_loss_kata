@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'contracts/market_agent_contract'
 
-require 'test_market'
 require 'market_agents/delayed_market_agent'
 
 describe DelayedMarketAgent do

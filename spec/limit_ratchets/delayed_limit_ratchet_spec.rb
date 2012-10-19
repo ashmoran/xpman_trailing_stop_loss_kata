@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'contracts/limit_ratchet_contract'
 
-require 'orders/test_order'
 require 'limit_ratchets/delayed_limit_ratchet'
 
 describe DelayedLimitRatchet do
