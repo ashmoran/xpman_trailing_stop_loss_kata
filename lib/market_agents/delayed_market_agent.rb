@@ -1,21 +1,11 @@
 require 'celluloid'
 require_relative 'market_agent'
+require_relative '../timers/null_timer'
+require_relative '../timers/too_late_timer'
 
 class DelayedMarketAgent
   include MarketAgent
   include Celluloid
-
-  class NullTimer
-    def cancel
-      # NOOP
-    end
-  end
-
-  class TooLateTimer
-    def cancel
-      raise MarketAgent::ActionError.new("Sell order has already been issued")
-    end
-  end
 
   def initialize(dependencies)
     @market = dependencies[:market]
@@ -27,11 +17,17 @@ class DelayedMarketAgent
     @timer.cancel
     @timer = after(@delay) do
       @market.sell
-      @timer = TooLateTimer.new
+      @timer = TooLateTimer.new(too_late_error)
     end
   end
 
   def belay
     @timer.cancel
+  end
+
+  private
+
+  def too_late_error
+    MarketAgent::ActionError.new("Sell order has already been issued")
   end
 end

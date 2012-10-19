@@ -1,16 +1,11 @@
 require 'celluloid'
 
 require_relative '../price_listener'
+require_relative '../timers/null_timer'
 
 class DelayedLimitRatchet
   include PriceListener
   include Celluloid
-
-  class NullTimer
-    def cancel
-      # NOOP
-    end
-  end
 
   def initialize(dependencies)
     @order            = dependencies[:order]
