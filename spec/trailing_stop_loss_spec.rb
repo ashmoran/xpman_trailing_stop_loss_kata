@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'trailing_stop_loss_2'
+require 'trailing_stop_loss'
 require 'celluloid/rspec'
 
 class Market
@@ -20,10 +20,10 @@ class Market
   end
 end
 
-describe "Trailing Stop Loss 2" do
+describe "Trailing Stop Loss" do
   let(:market)    { Market.new }
   let(:agent)     { TestMarketAgent.new(market: market) }
-  subject(:order) { TrailingStopLoss2.new(limit: 9, market_agent: agent) }
+  subject(:order) { TrailingStopLoss.new(limit: 9, market_agent: agent) }
 
   context "price drops below limit" do
     it "sells" do
@@ -123,7 +123,7 @@ describe DelayedMarketAgent do
           agent.sell
           sleep 0.04
           agent.belay
-          agent.belay
+          # agent.belay
           sleep 0.02
           expect(market.actions).to be_empty
         end

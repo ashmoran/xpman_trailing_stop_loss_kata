@@ -1,6 +1,6 @@
 require 'celluloid'
 
-class TrailingStopLoss2
+class TrailingStopLoss
   def initialize(attributes)
     @limit = attributes[:limit]
     @agent = attributes[:market_agent]
