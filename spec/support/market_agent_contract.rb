@@ -1,36 +1,56 @@
 EXPECTED_METHODS = [ :sell, :belay ]
 
-shared_examples_for "a MarketAgent" do
-  it { should be_a(MarketAgent) }
-
+shared_context "MarketAgent context" do
   before(:each) do
     unless EXPECTED_METHODS.all? { |message| respond_to?(message) }
       raise RuntimeError.new(missing_helper_error_message)
     end
   end
 
+  def missing_helper_error_message
+    "MarketAgent example groups must define: " +
+      EXPECTED_METHODS.map { |method| "##{method}" }.join(", ")
+  end
+end
+
+shared_examples_for "a MarketAgent" do
+  it { should be_a(MarketAgent) }
+
   describe "#sell" do
     it "sells" do
       sell
       expect(market.actions).to be == [ :sell ]
     end
-
-    context "called twice" do
-      it "does not raise an error" do
-        sell
-        sell
-      end
-    end
   end
 
   context "when told to belay" do
     it "doesn't raise an error" do
-      belay
+      expect {
+        belay
+      }.to_not raise_error
     end
   end
+end
 
-  def missing_helper_error_message
-    "MarketAgent example groups must define: " +
-      EXPECTED_METHODS.map { |method| "##{method}" }.join(", ")
+shared_examples_for "a deferred MarketAgent" do
+  describe "#sell" do
+    context "called again before the sale completes" do
+      it "doesn't raise an error" do
+        expect {
+          sell
+          sell
+        }.to_not raise_error
+      end
+    end
+
+    context "called again after a completed sale" do
+      it "raises an error" do
+        expect {
+          sell
+          allow_sell_to_complete
+          sell
+        }.to raise_error(MarketAgent::ActionError, "Sell order has already been issued")
+      end
+    end
   end
 end
