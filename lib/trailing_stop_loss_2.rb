@@ -16,7 +16,7 @@ class TrailingStopLoss2
 end
 
 module MarketAgent
-
+  class ActionError < RuntimeError; end
 end
 
 class TestMarketAgent
@@ -44,6 +44,15 @@ class ImmediateMarketAgent
 
   def sell
     @market.sell
+
+    # Look ma, no instance state
+    def self.belay
+      raise MarketAgent::ActionError.new("Sell order has already been issued")
+    end
+  end
+
+  def belay
+    # NOOP
   end
 end
 

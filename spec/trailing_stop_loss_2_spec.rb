@@ -19,7 +19,7 @@ class Market
   end
 end
 
-describe "Trailing Stop Loss 2", type: :market_agent do
+describe "Trailing Stop Loss 2" do
   let(:market)    { Market.new }
   let(:agent)     { TestMarketAgent.new(market: market) }
   subject(:order) { TrailingStopLoss2.new(limit: 9, market_agent: agent) }
@@ -47,7 +47,7 @@ describe "Trailing Stop Loss 2", type: :market_agent do
   end
 end
 
-describe TestMarketAgent, type: :market_agent do
+describe TestMarketAgent do
   let(:market)    { Market.new }
   subject(:agent) { TestMarketAgent.new(market: market) }
 
@@ -67,7 +67,7 @@ describe TestMarketAgent, type: :market_agent do
   end
 end
 
-describe ImmediateMarketAgent, type: :market_agent do
+describe ImmediateMarketAgent do
   let(:market)    { Market.new }
   subject(:agent) { ImmediateMarketAgent.new(market: market) }
 
@@ -76,16 +76,27 @@ describe ImmediateMarketAgent, type: :market_agent do
       agent.sell
       expect(market.actions).to be == [ :sell ]
     end
+
+    context "then told to belay" do
+      it "raises an error" do
+        agent.sell
+
+        expect {
+          agent.belay
+        }.to raise_error(MarketAgent::ActionError, "Sell order has already been issued")
+      end
+    end
   end
 
   context "when told to belay" do
-    it "raises an error" do
-      pending
+    it "does nothing" do
+      agent.belay
+      expect(market.actions).to be_empty
     end
   end
 end
 
-describe DelayedMarketAgent, type: :market_agent do
+describe DelayedMarketAgent do
   let(:market)    { Market.new }
   subject(:agent) { DelayedMarketAgent.new(market: market, delay: 0.1) }
 
