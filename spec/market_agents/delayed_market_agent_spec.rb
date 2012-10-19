@@ -32,6 +32,16 @@ describe DelayedMarketAgent do
     end
   end
 
+  it_behaves_like "a DeferredMarketAgent" do
+    def sell_without_completing
+      agent.sell
+    end
+
+    def allow_sell_to_complete
+      sleep 0.06
+    end
+  end
+
   context "when told to sell" do
     context "before the specified sell delay" do
       it "has not not sold" do
