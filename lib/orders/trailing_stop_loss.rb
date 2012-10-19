@@ -1,4 +1,4 @@
-require_relative 'interfaces/price_listener'
+require_relative '../interfaces/price_listener'
 
 class TrailingStopLoss
   include PriceListener
