@@ -41,7 +41,7 @@ describe DelayedMarketAgent do
           agent.sell
           sleep 0.04
           agent.belay
-          # agent.belay
+          agent.belay
           sleep 0.02
           expect(market.actions).to be_empty
         end
