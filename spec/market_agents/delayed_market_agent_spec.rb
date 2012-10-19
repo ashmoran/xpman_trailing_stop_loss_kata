@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/market_agent_contract'
 
-require 'market'
+require 'test_market'
 require 'market_agents/delayed_market_agent'
 
 describe DelayedMarketAgent do
@@ -18,7 +18,7 @@ describe DelayedMarketAgent do
     Celluloid.logger = nil
   end
 
-  let(:market)    { Market.new }
+  let(:market)    { TestMarket.new }
   subject(:agent) { DelayedMarketAgent.new(market: market, delay: 0.05) }
 
   it_behaves_like "a MarketAgent" do

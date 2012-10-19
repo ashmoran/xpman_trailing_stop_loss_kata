@@ -1,4 +1,4 @@
-class Market
+class TestMarket
   def initialize
     @actions = [ ]
   end

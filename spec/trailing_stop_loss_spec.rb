@@ -1,10 +1,10 @@
 require 'spec_helper'
 require 'trailing_stop_loss'
-require 'market'
+require 'test_market'
 require 'market_agents/test_market_agent'
 
 describe TrailingStopLoss do
-  let(:market)    { Market.new }
+  let(:market)    { TestMarket.new }
   let(:agent)     { TestMarketAgent.new(market: market) }
   subject(:order) { TrailingStopLoss.new(limit: 9, market_agent: agent) }
 

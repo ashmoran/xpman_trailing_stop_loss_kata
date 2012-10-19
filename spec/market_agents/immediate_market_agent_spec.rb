@@ -1,11 +1,11 @@
 require 'spec_helper'
 require 'support/market_agent_contract'
 
-require 'market'
+require 'test_market'
 require 'market_agents/immediate_market_agent'
 
 describe ImmediateMarketAgent do
-  let(:market)    { Market.new }
+  let(:market)    { TestMarket.new }
   subject(:agent) { ImmediateMarketAgent.new(market: market) }
 
   it_behaves_like "a MarketAgent" do

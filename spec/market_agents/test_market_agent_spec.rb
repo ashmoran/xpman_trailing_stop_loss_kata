@@ -1,11 +1,11 @@
 require 'spec_helper'
 require 'support/market_agent_contract'
 
-require 'market'
+require 'test_market'
 require 'market_agents/test_market_agent'
 
 describe TestMarketAgent do
-  let(:market)    { Market.new }
+  let(:market)    { TestMarket.new }
   subject(:agent) { TestMarketAgent.new(market: market) }
 
   # This class most definitely is NOT a DeferredMarketAgent!
