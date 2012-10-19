@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/price_listener_contract'
+require 'contracts/price_listener_contract'
 
 require 'trailing_stop_loss'
 require 'market_agents/test_market_agent'

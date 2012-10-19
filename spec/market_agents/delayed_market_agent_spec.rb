@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'support/market_agent_contract'
+require 'contracts/market_agent_contract'
 
 require 'test_market'
 require 'market_agents/delayed_market_agent'
