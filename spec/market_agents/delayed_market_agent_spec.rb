@@ -71,7 +71,7 @@ describe DelayedMarketAgent do
       end
 
       context "and sell again" do
-        it "resets the timer (because we assume the price has changed" do
+        it "resets the timer (because we assume the price has changed)" do
           agent.sell
           sleep 0.04
           agent.sell
