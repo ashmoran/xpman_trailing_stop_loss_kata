@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'market'
 require 'market_agents/immediate_market_agent'
 
 describe ImmediateMarketAgent do

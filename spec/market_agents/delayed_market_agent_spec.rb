@@ -1,7 +1,21 @@
 require 'spec_helper'
+require 'market'
 require 'market_agents/delayed_market_agent'
 
 describe DelayedMarketAgent do
+  let(:logger) { Logger.new(StringIO.new) }
+
+  around(:each) do |example|
+    original_logger = Celluloid.logger
+    Celluloid.logger = logger
+    example.run
+    Celluloid.logger = original_logger
+  end
+
+  after(:all) do
+    Celluloid.logger = nil
+  end
+
   let(:market)    { Market.new }
   subject(:agent) { DelayedMarketAgent.new(market: market, delay: 0.05) }
 
