@@ -1,17 +1,4 @@
-class TestMarket
-  def initialize
-    @actions = [ ]
-  end
+require_relative 'market_agents/test_market_agent'
 
-  def sell
-    @actions << :sell
-  end
-
-  def belay
-    @actions << :belay
-  end
-
-  def actions
-    @actions.dup
-  end
-end
+# It just turned out they're the exact same thing
+TestMarket = TestMarketAgent

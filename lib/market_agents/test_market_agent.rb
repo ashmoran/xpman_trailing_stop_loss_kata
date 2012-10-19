@@ -1,17 +1,18 @@
-require_relative 'market_agent'
-
+# Exactly the same as TestMarket now...
 class TestMarketAgent
-  include MarketAgent
-
-  def initialize(dependencies)
-    @market = dependencies[:market]
+  def initialize
+    @actions = [ ]
   end
 
   def sell
-    @market.sell
+    @actions << :sell
   end
 
   def belay
-    @market.belay
+    @actions << :belay
+  end
+
+  def actions
+    @actions.dup
   end
 end

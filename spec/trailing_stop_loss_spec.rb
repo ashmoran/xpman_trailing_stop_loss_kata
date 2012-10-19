@@ -4,21 +4,20 @@ require 'test_market'
 require 'market_agents/test_market_agent'
 
 describe TrailingStopLoss do
-  let(:market)    { TestMarket.new }
-  let(:agent)     { TestMarketAgent.new(market: market) }
+  let(:agent)     { TestMarketAgent.new }
   subject(:order) { TrailingStopLoss.new(limit: 9, market_agent: agent) }
 
   context "price drops below limit" do
     it "sells" do
       order.price_changed(8)
-      expect(market.actions).to be == [ :sell ]
+      expect(agent.actions).to be == [ :sell ]
     end
   end
 
   context "price moves to the limit" do
     it "doesn't sell" do
       order.price_changed(9)
-      expect(market.actions).to_not include(:sell)
+      expect(agent.actions).to_not include(:sell)
     end
   end
 
@@ -26,7 +25,7 @@ describe TrailingStopLoss do
     it "belays the order" do
       order.price_changed(8)
       order.price_changed(9)
-      expect(market.actions).to be == [ :sell, :belay ]
+      expect(agent.actions).to be == [ :sell, :belay ]
     end
   end
 
@@ -34,7 +33,7 @@ describe TrailingStopLoss do
     it "sells twice (because we want to let the agent decide how to handle this)" do
       order.price_changed(8)
       order.price_changed(7)
-      expect(market.actions).to be == [ :sell, :sell ]
+      expect(agent.actions).to be == [ :sell, :sell ]
     end
   end
 end
