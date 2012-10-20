@@ -3,6 +3,8 @@ require_relative 'stop_loss'
 require_relative 'market_agent'
 
 class TrailingStopLoss
+  include Celluloid
+
   def initialize(config)
     @impl =
       LimitRatchet.new(

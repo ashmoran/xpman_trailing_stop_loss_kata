@@ -6,13 +6,21 @@ describe TrailingStopLoss do
   include CelluloidHelpers
 
   let(:market) { MockMarket.new }
-  subject(:app) { TrailingStopLoss.new(market: market, opening_price: 10, ratchet_delay: 0.15, sell_delay: 0.30) }
+
+  subject(:order) {
+    TrailingStopLoss.new(
+      market:         market,
+      opening_price:  10,
+      ratchet_delay:  0.15,
+      sell_delay:     0.30
+    )
+  }
 
   context "the price dips briefly" do
     it "doesn't sell" do
-      app.price_changed(8)
+      order.price_changed(8)
       sleep 0.29
-      app.price_changed(9)
+      order.price_changed(9)
       sleep 0.02
       expect(market.actions).to be_empty
     end
@@ -20,7 +28,7 @@ describe TrailingStopLoss do
 
   context "the price tanks" do
     it "sells" do
-      app.price_changed(8)
+      order.price_changed(8)
       sleep 0.31
       expect(market.actions).to be == [ :sell ]
     end
@@ -28,9 +36,9 @@ describe TrailingStopLoss do
 
   context "the price dips then soars" do
     it "doesn't sell" do
-      app.price_changed(9)
+      order.price_changed(9)
       sleep 0.29
-      app.price_changed(100)
+      order.price_changed(100)
       sleep 0.31
       expect(market.actions).to be_empty
     end
@@ -38,9 +46,9 @@ describe TrailingStopLoss do
 
   context "the price soars then tanks" do
     it "sells" do
-      app.price_changed(100)
+      order.price_changed(100)
       sleep 0.16
-      app.price_changed(98)
+      order.price_changed(98)
       sleep 0.31
       expect(market.actions).to be == [ :sell ]
     end
