@@ -15,7 +15,7 @@ describe App do
 
   context "the price dips briefly" do
     it "doesn't sell" do
-      app.price_changed(2)
+      app.price_changed(8)
       sleep 0.29
       app.price_changed(9)
       sleep 0.02
@@ -25,7 +25,7 @@ describe App do
 
   context "the price tanks" do
     it "sells" do
-      app.price_changed(2)
+      app.price_changed(8)
       sleep 0.31
       expect(market.actions).to be == [ :sell ]
     end
@@ -33,7 +33,7 @@ describe App do
 
   context "the price dips then soars" do
     it "doesn't sell" do
-      app.price_changed(2)
+      app.price_changed(9)
       sleep 0.29
       app.price_changed(100)
       sleep 0.31
@@ -41,7 +41,7 @@ describe App do
     end
   end
 
-  context "the price soars then dips" do
+  context "the price soars then tanks" do
     it "sells" do
       app.price_changed(100)
       sleep 0.16
