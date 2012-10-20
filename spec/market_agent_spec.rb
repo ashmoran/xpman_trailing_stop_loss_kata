@@ -5,7 +5,7 @@ require 'market_agent'
 describe MarketAgent do
   include CelluloidHelpers
 
-  let(:market)    { TestMarket.new }
+  let(:market)    { MockMarket.new }
   subject(:agent) { MarketAgent.new(market: market, delay: 0.05) }
 
   context "when told to sell" do

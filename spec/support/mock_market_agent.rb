@@ -1,4 +1,4 @@
-class TestMarketAgent
+class MockMarketAgent
   def initialize
     @actions = [ ]
   end

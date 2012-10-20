@@ -5,7 +5,7 @@ require 'app'
 describe App do
   include CelluloidHelpers
 
-  let(:market) { TestMarket.new }
+  let(:market) { MockMarket.new }
   subject(:app) { App.new(market: market, opening_price: 10, ratchet_delay: 0.15, sell_delay: 0.30) }
 
   context "the price dips briefly" do

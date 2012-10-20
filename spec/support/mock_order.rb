@@ -1,4 +1,4 @@
-class TestOrder
+class MockOrder
   def initialize
     @limit            = :initial_limit
     @last_known_price = :initial_price

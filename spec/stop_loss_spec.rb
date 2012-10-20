@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'stop_loss'
 
 describe StopLoss do
-  let(:agent)     { TestMarketAgent.new }
+  let(:agent)     { MockMarketAgent.new }
   subject(:order) { StopLoss.new(limit: 9, market_agent: agent) }
 
   describe "#update_limit" do

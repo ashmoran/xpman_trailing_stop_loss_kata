@@ -5,7 +5,7 @@ require 'limit_ratchet'
 describe LimitRatchet do
   include CelluloidHelpers
 
-  let(:order) { TestOrder.new }
+  let(:order) { MockOrder.new }
   subject(:ratchet) { LimitRatchet.new(order: order, opening_price: 21, delay: 0.05) }
 
   context "the price goes up" do
