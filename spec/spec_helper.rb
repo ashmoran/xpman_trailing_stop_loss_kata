@@ -1,8 +1,8 @@
 require 'ap'
 
-require 'spec/test_market'
-require 'spec/test_market_agent'
-require 'spec/test_order'
+require 'support/test_market'
+require 'support/test_market_agent'
+require 'support/test_order'
 
 require 'support/celluloid_helpers'
 

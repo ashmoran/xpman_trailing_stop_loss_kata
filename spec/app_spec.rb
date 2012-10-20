@@ -2,8 +2,6 @@ require 'spec_helper'
 
 require 'app'
 
-require 'spec/test_market'
-
 describe App do
   include CelluloidHelpers
 
