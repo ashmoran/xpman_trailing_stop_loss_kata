@@ -1,6 +1,6 @@
 require 'celluloid'
 
-class TrailingStopLoss
+class StopLoss
   include Celluloid
 
   def initialize(attributes)

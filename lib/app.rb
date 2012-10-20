@@ -1,5 +1,5 @@
 require_relative 'limit_ratchet'
-require_relative 'orders/trailing_stop_loss'
+require_relative 'stop_loss'
 require_relative 'market_agent'
 
 class App
@@ -8,7 +8,7 @@ class App
       LimitRatchet.new(
         opening_price:  config.fetch(:opening_price),
         delay:          config.fetch(:ratchet_delay),
-        order: TrailingStopLoss.new(
+        order: StopLoss.new(
           limit:        config.fetch(:opening_price) - 1,
           market_agent: MarketAgent.new(
             delay:  config.fetch(:sell_delay),

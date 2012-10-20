@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-require 'orders/trailing_stop_loss'
+require 'stop_loss'
 
-describe TrailingStopLoss do
+describe StopLoss do
   let(:agent)     { TestMarketAgent.new }
-  subject(:order) { TrailingStopLoss.new(limit: 9, market_agent: agent) }
+  subject(:order) { StopLoss.new(limit: 9, market_agent: agent) }
 
   describe "#update_limit" do
     it "updates the limit" do
