@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-require 'app'
+require 'trailing_stop_loss'
 
-describe App do
+describe TrailingStopLoss do
   include CelluloidHelpers
 
   let(:market) { MockMarket.new }
-  subject(:app) { App.new(market: market, opening_price: 10, ratchet_delay: 0.15, sell_delay: 0.30) }
+  subject(:app) { TrailingStopLoss.new(market: market, opening_price: 10, ratchet_delay: 0.15, sell_delay: 0.30) }
 
   context "the price dips briefly" do
     it "doesn't sell" do

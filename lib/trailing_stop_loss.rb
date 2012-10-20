@@ -2,7 +2,7 @@ require_relative 'limit_ratchet'
 require_relative 'stop_loss'
 require_relative 'market_agent'
 
-class App
+class TrailingStopLoss
   def initialize(config)
     @impl =
       LimitRatchet.new(
