@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'contracts/limit_ratchet_contract'
 
 require 'limit_ratchets/delayed_limit_ratchet'
 
@@ -8,8 +7,6 @@ describe DelayedLimitRatchet do
 
   let(:order) { TestOrder.new }
   subject(:ratchet) { DelayedLimitRatchet.new(order: order, opening_price: 21, delay: 0.05) }
-
-  it_behaves_like "a LimitRatchet"
 
   context "the price goes up" do
     context "for less than the delay" do
@@ -83,9 +80,5 @@ describe DelayedLimitRatchet do
   it "relays the price change" do
     ratchet.price_changed(30)
     expect(order.last_known_price).to be == 30
-  end
-
-  it "doesn't duplicate the ratchet logic" do
-    pending
   end
 end
