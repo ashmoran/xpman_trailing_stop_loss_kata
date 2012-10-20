@@ -21,5 +21,22 @@ describe ImmediateLimitRatchet do
       ratchet.price_changed(22)
       expect(order.limit).to be == 21
     end
+
+    context "then goes down" do
+      it "doesn't let the limit go back down" do
+        ratchet.price_changed(23)
+        ratchet.price_changed(22)
+        expect(order.limit).to be == 22
+      end
+
+      context "then goes back up again" do
+        it "isn't fooled" do
+          ratchet.price_changed(24)
+          ratchet.price_changed(22)
+          ratchet.price_changed(23)
+          expect(order.limit).to be == 23
+        end
+      end
+    end
   end
 end
