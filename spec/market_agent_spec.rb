@@ -1,24 +1,12 @@
 require 'spec_helper'
-require 'contracts/market_agent_contract'
 
-require 'market_agents/delayed_market_agent'
+require 'market_agent'
 
-describe DelayedMarketAgent do
+describe MarketAgent do
   include CelluloidHelpers
 
   let(:market)    { TestMarket.new }
-  subject(:agent) { DelayedMarketAgent.new(market: market, delay: 0.05) }
-
-  it_behaves_like "a MarketAgent" do
-    def sell
-      agent.sell
-      sleep 0.06
-    end
-
-    def belay
-      agent.belay
-    end
-  end
+  subject(:agent) { MarketAgent.new(market: market, delay: 0.05) }
 
   context "when told to sell" do
     context "before the specified sell delay" do

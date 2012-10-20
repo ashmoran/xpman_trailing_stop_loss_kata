@@ -1,12 +1,12 @@
 require 'celluloid'
 
-require_relative '../interfaces/market_agent'
-require_relative '../timers/null_timer'
-require_relative '../timers/too_late_timer'
+require_relative 'timers/null_timer'
+require_relative 'timers/too_late_timer'
 
-class DelayedMarketAgent
-  include MarketAgent
+class MarketAgent
   include Celluloid
+
+  class ActionError < RuntimeError; end
 
   def initialize(dependencies)
     @market = dependencies.fetch(:market)
@@ -29,6 +29,6 @@ class DelayedMarketAgent
   private
 
   def too_late_error
-    MarketAgent::ActionError.new("Sell order has already been issued")
+    ActionError.new("Sell order has already been issued")
   end
 end
