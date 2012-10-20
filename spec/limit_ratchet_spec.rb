@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-require 'limit_ratchets/delayed_limit_ratchet'
+require 'limit_ratchet'
 
-describe DelayedLimitRatchet do
+describe LimitRatchet do
   include CelluloidHelpers
 
   let(:order) { TestOrder.new }
-  subject(:ratchet) { DelayedLimitRatchet.new(order: order, opening_price: 21, delay: 0.05) }
+  subject(:ratchet) { LimitRatchet.new(order: order, opening_price: 21, delay: 0.05) }
 
   context "the price goes up" do
     context "for less than the delay" do

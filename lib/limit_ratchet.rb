@@ -1,8 +1,8 @@
 require 'celluloid'
 
-require_relative '../timers/null_timer'
+require_relative 'timers/null_timer'
 
-class DelayedLimitRatchet
+class LimitRatchet
   include Celluloid
 
   def initialize(dependencies)

@@ -1,4 +1,4 @@
-require_relative 'limit_ratchets/delayed_limit_ratchet'
+require_relative 'limit_ratchet'
 require_relative 'orders/trailing_stop_loss'
 require_relative 'market_agents/delayed_market_agent'
 
@@ -7,7 +7,7 @@ class App
 
   def initialize(config)
     @impl =
-      DelayedLimitRatchet.new(
+      LimitRatchet.new(
         opening_price:  config.fetch(:opening_price),
         delay:          config.fetch(:ratchet_delay),
         order: TrailingStopLoss.new(
