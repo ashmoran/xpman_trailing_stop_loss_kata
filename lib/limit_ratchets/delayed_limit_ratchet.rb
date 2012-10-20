@@ -8,9 +8,9 @@ class DelayedLimitRatchet
   include Celluloid
 
   def initialize(dependencies)
-    @order            = dependencies[:order]
-    @last_known_price = dependencies[:opening_price]
-    @delay            = dependencies[:delay]
+    @order            = dependencies.fetch(:order)
+    @last_known_price = dependencies.fetch(:opening_price)
+    @delay            = dependencies.fetch(:delay)
     @timer            = NullTimer.new
   end
 

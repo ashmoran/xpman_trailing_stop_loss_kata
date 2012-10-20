@@ -1,7 +1,8 @@
 module CelluloidHelpers
   def self.included(host)
     host.class_eval do
-      let(:logger) { Logger.new(StringIO.new) }
+      let(:log_output) { StringIO.new }
+      let(:logger) { Logger.new(log_output) }
 
       around(:each) do |example|
         original_logger = Celluloid.logger

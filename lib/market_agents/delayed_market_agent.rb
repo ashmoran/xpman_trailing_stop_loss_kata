@@ -9,8 +9,8 @@ class DelayedMarketAgent
   include Celluloid
 
   def initialize(dependencies)
-    @market = dependencies[:market]
-    @delay  = dependencies[:delay]
+    @market = dependencies.fetch(:market)
+    @delay  = dependencies.fetch(:delay)
     @timer  = NullTimer.new
   end
 

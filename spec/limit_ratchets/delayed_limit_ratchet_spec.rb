@@ -39,6 +39,14 @@ describe DelayedLimitRatchet do
           sleep 0.06
         }.to change { order.limit }.to(21)
       end
+
+      it "is idempotent" do
+        expect {
+          ratchet.price_changed(22)
+          sleep 0.06
+          ratchet.price_changed(22)
+        }.to change { order.limit }.to(21)
+      end
     end
   end
 

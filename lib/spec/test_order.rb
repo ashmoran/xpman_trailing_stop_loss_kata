@@ -1,7 +1,7 @@
-require_relative '../interfaces/price_listener'
+require_relative '../interfaces/order'
 
 class TestOrder
-  include PriceListener
+  include Order
 
   def initialize
     @limit            = :initial_limit

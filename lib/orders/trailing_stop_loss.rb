@@ -1,11 +1,13 @@
-require_relative '../interfaces/price_listener'
+require 'celluloid'
+require_relative '../interfaces/order'
 
 class TrailingStopLoss
-  include PriceListener
+  include Order
+  include Celluloid
 
   def initialize(attributes)
-    @limit = attributes[:limit]
-    @agent = attributes[:market_agent]
+    @limit = attributes.fetch(:limit)
+    @agent = attributes.fetch(:market_agent)
   end
 
   def price_changed(new_price)
@@ -14,5 +16,9 @@ class TrailingStopLoss
     else
       @agent.belay
     end
+  end
+
+  def update_limit(new_limit)
+    @limit = new_limit
   end
 end
