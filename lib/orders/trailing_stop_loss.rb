@@ -1,8 +1,6 @@
 require 'celluloid'
-require_relative '../interfaces/order'
 
 class TrailingStopLoss
-  include Order
   include Celluloid
 
   def initialize(attributes)

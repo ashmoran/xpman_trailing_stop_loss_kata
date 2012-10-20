@@ -2,7 +2,6 @@ require 'spec_helper'
 
 require 'app'
 
-require 'contracts/price_listener_contract'
 require 'spec/test_market'
 
 describe App do
@@ -10,8 +9,6 @@ describe App do
 
   let(:market) { TestMarket.new }
   subject(:app) { App.new(market: market, opening_price: 10, ratchet_delay: 0.15, sell_delay: 0.30) }
-
-  it_behaves_like "a PriceListener"
 
   context "the price dips briefly" do
     it "doesn't sell" do

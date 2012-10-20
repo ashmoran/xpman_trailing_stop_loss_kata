@@ -3,8 +3,6 @@ require_relative 'orders/trailing_stop_loss'
 require_relative 'market_agent'
 
 class App
-  include PriceListener
-
   def initialize(config)
     @impl =
       LimitRatchet.new(

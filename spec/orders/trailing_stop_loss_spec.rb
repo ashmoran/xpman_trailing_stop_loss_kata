@@ -1,13 +1,10 @@
 require 'spec_helper'
-require 'contracts/order_contract'
 
 require 'orders/trailing_stop_loss'
 
 describe TrailingStopLoss do
   let(:agent)     { TestMarketAgent.new }
   subject(:order) { TrailingStopLoss.new(limit: 9, market_agent: agent) }
-
-  it_behaves_like "an Order"
 
   describe "#update_limit" do
     it "updates the limit" do

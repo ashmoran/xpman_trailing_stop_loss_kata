@@ -1,8 +1,4 @@
-require_relative '../interfaces/order'
-
 class TestOrder
-  include Order
-
   def initialize
     @limit            = :initial_limit
     @last_known_price = :initial_price
